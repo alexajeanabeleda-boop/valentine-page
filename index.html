@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💗</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="clouds"></div>
+<div class="petals"></div>
+
+<div class="box">
+    <h1 id="question">Will you be my Valentine?</h1>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+</div>
+
+<script>
+const question = document.getElementById("question");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const petals = document.querySelector(".petals");
+const clouds = document.querySelector(".clouds");
+
+const questions = [
+"Waittt don’t decide yet 🥺💭",
+"Are we really doing this? 😩✨",
+"You can still change it 😳💞",
+"That answer feels suspicious 👀💗",
+"Let’s pretend that didn’t happen 😭💕",
+"I think you misclicked 😌🌸",
+"Deep breaths… now choose YES 😚💓",
+"Are you absolutely, positively sure? 🥹💫",
+"The other option is waving at you 👋💖",
+"Don’t be shy, pick the cute one 😏🎀",
+"I won’t judge if you switch 😳💘",
+"That didn’t feel right, did it? 😔💞",
+"Try again but with confidence 😌✨",
+"You deserve the better choice 🥹🌷",
+"The YES button is feeling ignored 😭💗",
+"Oops… let’s redo that 😆💓",
+"Be honest with your heart 😌💖",
+"I believe you can choose wisely 😏💕",
+"The universe is hinting something 👀✨",
+"Okay but imagine if you said YES 😳🌸",
+"Let’s not make regrets today 🥺💫",
+"Your heart knows the answer 😭💞",
+"Is that your final answer though? 😏💗",
+"I’ll give you one more chance 😌🎀",
+"Think of the vibes 😆💖",
+"That choice seems risky 😳✨",
+"Don’t overthink it… just YES 😚💓",
+"Trust the cute option 😌💕",
+"Are you playing hard to get? 😏💗",
+"We both know what the right answer is 🥹🌷"
+];
+
+let noCount = 0;
+
+setInterval(() => {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.textContent = "🌸";
+    petal.style.left = Math.random()*100+"%";
+    petals.appendChild(petal);
+    setTimeout(()=>petal.remove(),8000);
+},600);
+
+
+setInterval(()=> {
+    const cloud = document.createElement("div");
+    cloud.className="cloud";
+    cloud.textContent="☁️";
+    cloud.style.top=Math.random()*40+"%";
+    clouds.appendChild(cloud);
+    setTimeout(()=>cloud.remove(),15000);
+},4000);
+
+noBtn.onclick = () => {
+    if (noCount < questions.length) {
+        question.textContent = questions[noCount];
+    }
+
+    yesBtn.style.fontSize = (16 + noCount * 5) + "px";
+    yesBtn.style.padding = (12 + noCount * 3) + "px " + (30 + noCount * 6) + "px";
+
+    if(noCount < 30){
+        let currentFont = parseInt(window.getComputedStyle(noBtn).fontSize);
+        let currentPadV = parseInt(window.getComputedStyle(noBtn).paddingTop);
+        let currentPadH = parseInt(window.getComputedStyle(noBtn).paddingLeft);
+
+        noBtn.style.fontSize = (currentFont - 0.5) + "px"; 
+        noBtn.style.padding = (currentPadV - 0.2) + "px " + (currentPadH - 0.5) + "px";
+
+        const boxRect = document.querySelector('.box').getBoundingClientRect();
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
+
+        const maxLeft = boxRect.width - btnWidth - 20;
+        const maxTop = boxRect.height - btnHeight - 20;
+
+        const randomLeft = Math.random() * maxLeft;
+        const randomTop = Math.random() * maxTop;
+
+        noBtn.style.position = "absolute";
+        noBtn.style.left = randomLeft + "px";
+        noBtn.style.top = randomTop + "px";
+    } else {
+        noBtn.remove();
+    }
+
+    noCount++;
+};
+
+
+yesBtn.onclick = () => {
+    question.textContent="Finally… I knew you’d say yes 🥹💖";
+    noBtn.style.display="none";
+
+    for(let i=0;i<25;i++){
+        const heart = document.createElement("div");
+        heart.className="explosion";
+        heart.textContent="💖";
+        heart.style.left="50%";
+        heart.style.top="50%";
+        heart.style.transform=`translate(-50%,-50%) rotate(${Math.random()*360}deg)`;
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),1000);
+    }
+};
+
+setInterval(()=>{
+    const heart = document.createElement("div");
+    heart.className = "floating-heart";
+    heart.textContent = "💖";
+    heart.style.left = Math.random()*100 + "%";
+    heart.style.fontSize = (14 + Math.random()*20) + "px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}, 800);
+</script>
+
+</body>
+</html>
